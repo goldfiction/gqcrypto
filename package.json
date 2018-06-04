@@ -1,0 +1,12 @@
+{
+  "name":"gqcrypto",
+  "license":"Apache-2.0",
+  "main":"index.js",
+  "dependencies":{
+    "bcrypt":"",
+    "egoroof-blowfish":""
+  },
+  "devDependencies":{
+    "express":"3.0.0"
+  }
+}
