@@ -58,25 +58,27 @@ Also included are browser counter parts stored in www folder
 
         var encoded=blowfish.encrypt({input:input})
         var decoded=blowfish.decrypt({input:encoded})
-        console.log(input)
-        console.log(encoded)
-        console.log(decoded)
-        console.log(input==decoded)
+        console.log("input:"+input)
+        console.log("encrypted:"+encoded)
+        console.log("decrypted:"+decoded)
+        console.log("equal:"+(input==decoded))
         console.log('----')
 
         var compressed=zip.compress({input:input})
         var uncompressed=zip.uncompress({input:compressed})
-        console.log(input)
-        console.log(compressed)
-        console.log(uncompressed)
-        console.log(input==uncompressed)
+        console.log("input:"+input)
+        console.log("compressed:"+compressed)
+        console.log("uncompressed:"+uncompressed)
+        console.log("equal:"+(input==uncompressed))
         console.log('----')
 
         var uncompressed2=zip.uncompress({input:input2})
-        console.log(atob(uncompressed2))
+        console.log("input:"+input2)
+        console.log("uncompressed:"+uncompressed2)
     }
     blowfishTest()
 </script>
+Use chrome inspector to see script results.
 </body>
 </html>
 ```
