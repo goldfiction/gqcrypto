@@ -7,7 +7,7 @@ see below for how ot use gqcrypt
 var gqcrypt=require('../index.js')
 var assert=require('assert')
 
-var input="0123456789";
+var input="01234567890123456789";
 it("should be able to hash password using bcrypt",function(done){
     gqcrypt.bcrypt.hash({input:input},function(e1,hash){
         gqcrypt.bcrypt.compare({input:input,hash:hash},function(e2,result){
@@ -21,15 +21,13 @@ it("should be able to hash password using bcrypt",function(done){
 });
 
 it("should be able to zlib zip string",function(done){
-    gqcrypt.zip.compress({input:input},function(e1,compressed){
-        gqcrypt.zip.uncompress({input:compressed},function(e2,uncompressed){
-            console.log(input)
-            console.log(compressed)
-            console.log(uncompressed)
-            assert(input==uncompressed)
-            done(e1||e2)
-        })
-    })
+    var compressed=gqcrypt.zip.compress({input:input})
+    var uncompressed=gqcrypt.zip.uncompress({input:compressed})
+    console.log(input)
+    console.log(compressed)
+    console.log(uncompressed)
+    assert(input==uncompressed)
+    done()
 });
 
 it("should be able to encrypt using blowfish",function(done){
@@ -48,29 +46,37 @@ Also included are browser counter parts stored in www folder
 
 <html>
 <body>
-<script src="blowfish.js"></script>  // from egoroof's blowfish: https://github.com/egoroof/blowfish
-<script src="zlib/zlib_and_gzip.min.js"></script>  // from maya's zlib: https://github.com/imaya/zlib.js/blob/develop/README.en.md
-<script src="zlib/rawinflate.min.js"></script>
-<script src="zlib/rawdeflate.min.js"></script>
+<script src="blowfish.js"></script>
+<script src="zlib/zlib_and_gzip.min.js"></script>
+<script src="zlib/gunzip.min.js"></script>
 
 <script src="blowfishSimple.js"></script>
 <script>
     function blowfishTest(){
         var input="01234567890123456789"
+        var input2="H4sIAIyeGVsA/0XGJQEAABAEwUrP0L/YynNjHlk9ey8B1bqJ/BQAAAA="
+
         var encoded=blowfish.encrypt({input:input})
         var decoded=blowfish.decrypt({input:encoded})
         console.log(input)
         console.log(encoded)
         console.log(decoded)
         console.log(input==decoded)
+        console.log('----')
+
         var compressed=zip.compress({input:input})
         var uncompressed=zip.uncompress({input:compressed})
+        console.log(input)
         console.log(compressed)
         console.log(uncompressed)
+        console.log(input==uncompressed)
+        console.log('----')
+
+        var uncompressed2=zip.uncompress({input:input2})
+        console.log(atob(uncompressed2))
     }
     blowfishTest()
 </script>
 </body>
 </html>
-
 ```

@@ -45,13 +45,11 @@ blowfish.decrypt=function(o){
 
 var zip={}
 zip.compress=function(o){
-    var deflate = new Zlib.RawDeflate(string2Uint8Array(o.input));
-    var compressed = deflate.compress();
-    return uint8Array2String(compressed);
+    var deflate = new Zlib.Gzip(string2Uint8Array(o.input)).compress();
+    return uint8Array2String(deflate);
 };
 
 zip.uncompress=function(o){
-    var unzip = new Zlib.RawInflate(string2Uint8Array(o.input));
-    var plain = unzip.decompress();
-    return uint8Array2String(plain);
+    var inflate = new Zlib.Gunzip(string2Uint8Array(o.input)).decompress();
+    return uint8Array2String(inflate);
 };
